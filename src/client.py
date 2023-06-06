@@ -11,11 +11,11 @@ import requests
 class Cliente():
     def __init__(self):
         #URL proporcionado con todos los servicios
-        #self.url = "http://www.dneonline.com/calculator.asmx?WSDL"
+        self.url = "http://www.dneonline.com/calculator.asmx?WSDL"
 
-        self.url= "https://pokeapi.co/api/v2/pokemon?"
+        #self.url= "https://pokeapi.co/api/v2/pokemon?"
         #objeto tipo cliente referente a la libreria zeep
-        self.client = Client(self.url)
+        #self.client = Client(self.url)
 
     #Metodo utilizado para crear contacto (POST)
     def create(self,name="default",catid = 1, published = 1):
@@ -35,21 +35,32 @@ class Cliente():
     def Lista(self):
              payload={}
              headers={}
-             response = requests.request("GET",self.url,headers=headers,data=payload)
+             link= "https://pokeapi.co/api/v2/pokemon?"
+             response = requests.request("GET",link,headers=headers,data=payload)
              data=response.json()
-             print(data)
+             result = data['results']
+             return result;
+             #for x in result:
+                
+             #   print("Nombre:",x["name"],"url:", x["url"])
+     
+             #print(data)
 
 
-    def sometimes(self):
-        '''main'''
+    def Suma(self,num1,num2):
         
         #wsdl_url = os.environ.get('WSDL_URL')
         #url = "http://www.dneonline.com/calculator.asmx?WSDL"
-        
         soap = Client(wsdl=self.url, 
                        service_name="Calculator",
                        port_name="CalculatorSoap12")
-        result = soap.service.Subtract(15, 5)
-        print(result)
-
+        result = soap.service.Add(num1, num2)
+        return result;
+        #print(result)
         #assert result == 10
+
+#from flask import Flask
+
+
+
+
