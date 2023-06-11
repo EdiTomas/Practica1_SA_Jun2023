@@ -46,7 +46,7 @@ app.post('/VerficarPedido', (req, res) => {
     
     for(let i=0;i<pedido.lenght;i++){
         if(pedido[i].Codigo===body.Codigo){
-            switch(body.Estado){
+            switch(pedido[i].Estado){
                 case 0:
                     res.send({success:true,
                         sms:'El pedido no se ha realizado'})

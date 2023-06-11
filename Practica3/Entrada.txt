@@ -1,0 +1,44 @@
+Post
+http://localhost:3000/Pedido
+
+{
+        "Codigo":1,
+        "Cliente":"Edi",
+        "Repartidor":"",
+        "Restaurante":"Campero",
+        "Estado":1
+}
+Post
+http://localhost:3000/VerficarPedido'
+
+{
+        "Codigo":1
+}
+
+
+Post
+http://localhost:3000/VerficarEstadoRepartidor
+
+
+{
+        "Codigo":1
+}
+
+Restaurante
+
+Post
+http://localhost:3002/RecibirPedidoRestaurante
+
+{
+        "Codigo":1
+}
+
+get
+http://localhost:3002/InformacionPedido'
+
+
+get
+http://localhost:3002/VerficarEstadoRepartidor
+
+post
+http://localhost:3003/Recibido
