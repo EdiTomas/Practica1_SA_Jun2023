@@ -1,3 +1,5 @@
+Cliente
+
 Post
 http://localhost:3000/Pedido
 
@@ -40,5 +42,6 @@ http://localhost:3002/InformacionPedido'
 get
 http://localhost:3002/VerficarEstadoRepartidor
 
+Repartidor
 post
 http://localhost:3003/Recibido
