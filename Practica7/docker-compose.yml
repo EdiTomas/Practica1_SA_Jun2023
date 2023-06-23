@@ -1,20 +1,20 @@
 version: "3"
 
+  
 services:
-  miservicio_mysql:
-    image: mysql:5.7
-    build: ./DB
+  mysql:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
     environment:
-      - MYSQL_DATABASE=CLIENTE
+      - MYSQL_DATABASE=DBTEST
       - MYSQL_ROOT_PASSWORD=root
     volumes:
-      # Montamos un volumen para MySQL para no perder los datos de bd
-      - ./volumenes/mysql:/var/lib/mysql
-    expose:
-      - 3306
+      - ./src/Script/data.sql:/docker-entrypoint-initdb.d/1.sql 
     ports:
-      - 3306:3306
-  
+      - '3306:3306'
+
+
   miservicio_backend:
     restart: always
     build: ./Backend
@@ -27,4 +27,4 @@ services:
       - ./Backend:/backend  
    
     links: 
-      - miservicio_mysql
+      - mysql
