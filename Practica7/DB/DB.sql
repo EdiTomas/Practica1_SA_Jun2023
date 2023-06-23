@@ -7,3 +7,12 @@ CREATE TABLE CLIENTE(
 );
 
 
+ Insert into CLIENTE (Nombre, Apellido) 
+ values ('Edi','Tomas'),
+		('Rudy','Tomas'),
+		('Jenifer','Tomas'),
+		('Eduar','Tomas');
+
+select * from CLIENTE
+
+

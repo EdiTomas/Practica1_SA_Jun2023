@@ -4,7 +4,6 @@ const morgan = require('morgan')
 
 const app = express()
 const port = 3000
-const router = express.Router();
 
 app.use(cors());
 app.use(morgan("dev"));
@@ -27,8 +26,6 @@ app.use(
 
 
 
-//const Consult =require('./Consulta')
-//router.get('/GetDatos', Consult);
 
 
 
@@ -37,7 +34,7 @@ app.get('/api1', (req, res) => {
 })
 
 
-app.use('/', router)
+app.use('/api', require('./router'))
 
 
 app.listen(port, () => {
