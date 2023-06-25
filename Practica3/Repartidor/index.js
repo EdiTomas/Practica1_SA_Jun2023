@@ -2,7 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const morgan = require('morgan')
 const pedido =require('../Almacenamiento/index.js')
-
+const logger = require("./logger");
 const app = express()
 const port = 3001
 
@@ -38,15 +38,18 @@ app.post('/Recibido', (req, res) => {
     const body = req.body;
 
 
-    for(let i=0;i<pedido.lenght;i++){
-        if(pedido[i].Codigo ===body.Codigo){
-            pedido[i].Estado = 2;
+    for(let i=0;i<pedido.pedido.length;i++){
+        if(pedido.pedido[i].Codigo ===body.Codigo){
+            pedido.pedido[i].Estado = 2;
+            logger.info( "Post, El pedido se ha entregado con exito, en la ruta '/Recibido'"); //debug level as first param
+            // 
             res.send({success:true,
                 sms:'El pedido se ha entregado con exito'})
-            
+            return;
         }
     }
-res.send({success:false,
+    logger.error('No se encontrado ningun Pedido en la ruta /Recibido')
+    res.send({success:false,
     sms:'No se encontrado ningun Pedido'})
 
 })

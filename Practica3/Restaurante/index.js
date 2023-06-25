@@ -2,7 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const morgan = require('morgan')
 const pedido =require('../Almacenamiento/index.js')
-
+const logger = require("./logger");
 const app = express()
 const port = 3002
 
@@ -38,50 +38,56 @@ app.get('/api1', (req, res) => {
 app.post('/RecibirPedidoRestaurante', (req, res) => {
     const body = req.body;
 
-    for(let i=0;i<pedido.lenght;i++){
-        if(pedido[i].Codigo===body.Codigo){
-                pedido[i].Estado=1;
-                pedido[i].Repartidor="Alejandro1";
+    for(let i=0;i<pedido.pedido.length;i++){
+        if(pedido.pedido[i].Codigo===body.Codigo){
+            pedido.pedido[i].Estado=1;
+            pedido.pedido[i].Repartidor="Alejandro1";
+            logger.info( "Post, El pedido se ha recibido, en la ruta '/RecibirPedidoRestaurante'"); //debug level as first param
             res.send({success:true,
                 sms:'El pedido se ha recibido'})
         }      
     }
-    res.send({success:false,
-        sms:'No se encontrado ningun Pedido'})
+    logger.error('No se encontrado ningun Pedido en la ruta /Recibido')
    
-   
-
+    res.send({success:false, sms:'No se encontrado ningun Pedido'})
     })
 
 app.get('/InformacionPedido', (req, res) => {
     
-    for(let i=0;i<pedido.lenght;i++){
-            switch(pedido.Estado){
+    for(let i=0;i<pedido.pedido.length;i++){
+            switch(pedido.pedido.Estado){
                 case 0:
                     res.send({success:true,
                         sms:'El pedido no se ha realizado'})
+                        logger.info( "Get, El pedido se ha recibido, en la ruta '/RecibirPedidoRestaurante'"); //debug level as first param
                     
-                break;
+                return;
                 case 1:
+                    logger.info( "Get, El pedido se ha recibido, en la ruta '/RecibirPedidoRestaurante'"); //debug level as first param
+                    
                     res.send({success:true,
                         sms:'El pedido esta en proceso'})
                    
-                break;
+                return;
                 case 2:
+                    logger.info( "Get, El pedido se ha recibido, en la ruta '/RecibirPedidoRestaurante'"); //debug level as first param
+                        
                     res.send({success:true,
                         sms:'El pedido se enviado el pedido'})
                    
-                break;
+                return;
                 case 3:
+                    logger.info( "Get, El pedido se ha recibido, en la ruta '/RecibirPedidoRestaurante'"); //debug level as first param
                     res.send({success:true,
                         sms:'Se ha entregado el pedido'})
                    
-                break;
+                return;
             }
             
             
               
     }
+    logger.error('No se encontrado ningun Pedido en la ruta /InformacionPedido')
     res.send({success:false,
         sms:'No se encontrado ningun Pedido'})
    
@@ -89,15 +95,17 @@ app.get('/InformacionPedido', (req, res) => {
 
 app.get('/VerficarEstadoRepartidor', (req, res) => {
   
-    for(let i=0;i<pedido.lenght;i++){
+    for(let i=0;i<pedido.pedido.length;i++){
         res.send({success:true,
-            sms:pedido})
+            sms:pedido.pedido})
   
     }
+    logger.error('No se encontrado ningun Pedido en la ruta /VerficarEstadoRepartidor')
     res.send({success:false,
         sms:'No se encontrado ningun Pedido'})
    
 })
+
 
 
 
